@@ -25,6 +25,7 @@ export async function getNoteById(req, res){
 export async function createNote(req, res){
   try {
     const { title, content } = req.body;
+    console.log(title);
     const savedNote = await new Note({ title, content }).save();
     res.status(201).json(savedNote);
   } catch (err) {
