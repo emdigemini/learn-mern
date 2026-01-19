@@ -18,12 +18,12 @@ app.use(rateLimiter);
 
 app.use("/api/notes",  notesRoutes);
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log('Server started on PORT:', PORT);
-  });
-}).catch(err => {
-  console.log("Server failed to start", err);
-  process.exit(1);
-});
-
+(async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => console.log("Server started on PORT:", PORT));
+  } catch (err) {
+    console.warn("Server failed to start", err);
+    process.exit(1);
+  }
+})();

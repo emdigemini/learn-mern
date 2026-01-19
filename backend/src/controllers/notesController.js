@@ -26,6 +26,7 @@ export async function createNote(req, res){
   try {
     const { title, content } = req.body;
     const savedNote = await new Note({ title, content }).save();
+
     res.status(201).json(savedNote);
   } catch (err) {
     console.log("Error in createNote controller.", err);
@@ -36,8 +37,7 @@ export async function createNote(req, res){
 export async function updateNote(req, res){
   try {
     const { title, content } = req.body;
-    const updatedNote = await new Note.findByIdAndUpdate(req.params.id, { title, content }, { new: true });
-    
+    const updatedNote = await Note.findByIdAndUpdate(req.params.id, { title, content }, { new: true });
     if(!updateNote) return res.status(404).json({ message: "Note not found." });
 
     res.status(200).json("Note successfully updated.", updatedNote);
